@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+Discovery Page for IPL 
+Production - https://search-ipl.netlify.app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Page Load Time
 
-## Available Scripts
+Dashboard/Landing page - 1.6 minutes
 
-In the project directory, you can run:
+Takes very long to load application as downloading datasets takes time (huge files). But once loaded, navigating datasets is seamless. Calculated using Networks tab and console.time().
 
-### `npm start`
+Usage
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Clicking the “All” button toggles between all filters and a few of them.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Search and filters have limited functionality. By default, “All” is selected and all filters are selected. This will show data from all datasets, 10 at a time. To select fewer filters, click on “All” again. This deselects a few filters and shows results for only 2 filters (decided beforehand in the code). 
 
-### `npm test`
+“Next” and “Prep” buttons are rendered once the results are rendered, to navigate the dataset.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Results can only be seen once the “Search’ button has been clicked. If results for all filters have been rendered, click on “All” again to deselect a few filters and click on “Search” button again to view new results.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Information Hierarchy
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Files - src/static/archive
+Contains csv and xlsx files converted to json files for better availability to main component. All json files are imported in two objects-
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+	categoriesAll
+	Array of datasets for displaying data from all datasets, i.e. all filters selected, 10 at a time.
 
-### `npm run eject`
+	categoriesFixed
+	Array of datasets for displaying data from some datasets, i.e. some filters selected beforehand (“Matches” and “Players”) , 10 at a time.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+filtersObject 
+Array of labels for filter buttons.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Components
+	Dashboard
+	Point of entry. Uses lifecycles to update props and re-render according to dependency array.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+	RenderFilters
+	Renders filter buttons. Allows toggling between all filters selections and limited filters selection by clicking on the “All” button.
 
-## Learn More
+	NavigateResults
+	Memoized - Allows navigation for rendered results and controls re-renders.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+	InfoCard
+	Displays props in a card.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+	ExtractData
+	Iterates over props and renders (10) cards accordingly.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Performance 
+Memoization has been used in the project to control unnecessary re-renders and limit wasted React cycles. Since multiple large datasets are used, it’s crucial to limit re-renders and prevent unnecessary re-rendering of children by limiting parent’s re-renders. Memoization will help prevent the outlier situation in this case - web application crashing. Only 10 JSON objects are used at a time and useEffect only calls showData() when there’s a change in any of the elements in the dependency array - currentFilter, start, isLastArray. 
