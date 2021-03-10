@@ -10,6 +10,7 @@ import ExtractData from "./ExtractData";
 
 import "./App.css";
 
+//returns ranged data from desired dataset
 export async function getData(data, start, end) {
   return data.slice(start, end);
 }
@@ -41,13 +42,22 @@ const categoriesFixed = [
   teamwise_home_and_away.results,
 ];
 
+//main function component, rendered in App
 const Dashboard = (props) => {
+  //selects dataset to be displayed
   const [fileContent, setFileContent] = React.useState([]);
   const [start, setStart] = React.useState(0);
+
+  //checks if array returned by getData is the last one
   const [isLastArray, setIsLastArray] = React.useState(false);
+
+  //sets dataset values from categoriesAll or categoriesFixed
   const [currentFilter, setCurrentFilter] = React.useState();
+
+  //toggle between all filters and only a few at a time
   const [displayAll, setDisplayAll] = React.useState(true);
 
+  //shows button filters
   const RenderFilters = () => {
     return (
       <ul id="filter-buttons">
@@ -97,6 +107,7 @@ const Dashboard = (props) => {
     );
   };
 
+  //fetches data and sets value of currentFilter
   const showData = () => {
     console.time();
 
@@ -108,6 +119,7 @@ const Dashboard = (props) => {
       .catch((err) => console.log(err));
   };
 
+  //lifecycle to ensure functionality on changes to dependencies (from dependency array)
   React.useEffect(() => {
     showData();
 
@@ -118,7 +130,8 @@ const Dashboard = (props) => {
     }
   }, [currentFilter, start, isLastArray]);
 
-  const Component = React.memo(() => {
+  //to use memoization, limit re-renders
+  const NavigateResults = React.memo(() => {
     const inc = React.useCallback(() => {
       setStart((c) => c + 10);
       if (isLastArray) {
@@ -130,6 +143,7 @@ const Dashboard = (props) => {
       setStart((c) => c - 10);
     }, []);
 
+    //buttons to navigate dataset
     return currentFilter ? (
       <div>
         <button
@@ -186,12 +200,14 @@ const Dashboard = (props) => {
         id="next-prev-btns"
         style={{ backgroundColor: currentFilter ? "black" : "none" }}
       >
-        <Component />
+        <NavigateResults />
       </div>
       <div id="cards-display-div">
         {fileContent.length !== 0 ? (
           <ExtractData fileContent={fileContent} />
-        ) : null}
+        ) : (
+          <h1>Landing Page</h1>
+        )}
       </div>
     </div>
   );

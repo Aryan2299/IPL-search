@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 
+//arranges data to be rendered in a card
 const InfoCard = (props) => {
   const player_info_card = {
     width: "100%",
