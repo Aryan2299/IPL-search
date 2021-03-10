@@ -11,11 +11,11 @@ Usage
 
 Clicking the “All” button toggles between all filters and a few of them.
 
-Search and filters have limited functionality. By default, “All” is selected and all filters are selected. This will show data from all datasets, 10 at a time. To select fewer filters, click on “All” again. This deselects a few filters and shows results for only 2 filters (decided beforehand in the code). 
+Search and filters have limited functionality. By default, “All” is selected and all filters are selected to load the results (first 10). This will show data from all datasets, 10 at a time. To select fewer filters, click on “All” again. This deselects a few filters and shows results for only 2 filters (decided beforehand in the code). 
 
 “Next” and “Prep” buttons are rendered once the results are rendered, to navigate the dataset.
 
-**Results can only be seen once the “Search’ button has been clicked. Doing so sends a request to either https://ipl-search-server.herokuapp.com/all/index} or https://ipl-search-server.herokuapp.com/random/index. If results for all filters have been rendered, click on “All” again to deselect a few filters and click on “Search” button again to view new results.
+**Results can only be seen once the “Search’ button has been clicked. Doing so sends a request to either https://ipl-search-server.herokuapp.com/all/index or https://ipl-search-server.herokuapp.com/random/index. If results for all filters have been rendered, click on “All” again to deselect a few filters and click on “Search” button again to view new results.
 
 
 Information Hierarchy
