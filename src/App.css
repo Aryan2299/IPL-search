@@ -1,0 +1,121 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+}
+#cards-display-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  z-index: 0;
+}
+
+#dashboard-div-outermost {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+  margin-top: 200px;
+  margin-bottom: 100px;
+}
+
+li {
+  list-style: none;
+}
+
+#search-and-filters-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 175px;
+  width: 100%;
+  top: 0;
+  position: fixed;
+  background-color: rgb(25, 25, 25);
+  z-index: 1;
+}
+
+#filter-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 20%;
+  overflow: scroll;
+  width: 90%;
+  margin-right: 5%;
+  scrollbar-width: none;
+}
+
+.filter-btn {
+  margin: 1px;
+  width: 200px;
+  height: 25px;
+  border-radius: 3px;
+}
+
+#search-bar {
+  width: 95%;
+  border: none;
+  background-color: rgb(60, 60, 60);
+  font-size: medium;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  margin: 10px;
+}
+
+#search-bar:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+#search-bar:focus {
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+}
+
+#next-prev-btns {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  height: 50px;
+}
+
+.prev-next-btn {
+  padding: 10px 50px;
+  background-color: rgb(200, 200, 200);
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.search-btn {
+  margin: 10px;
+  background-color: rgba(65, 65, 65);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 100px;
+  color: white;
+  font-size: medium;
+}
+
+.search-btn:hover {
+  background-color: rgba(80, 80, 80);
+}
